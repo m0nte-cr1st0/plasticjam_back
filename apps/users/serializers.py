@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from .models import User, Statistic
 
-from datetime import datetime
+
 class UserListSerializer(serializers.ModelSerializer):
     total_clicks = serializers.SerializerMethodField()
     total_page_views = serializers.SerializerMethodField()
@@ -23,6 +23,11 @@ class UserListSerializer(serializers.ModelSerializer):
         return sum(obj.statistics.values_list('page_views', flat=True))
 
 
+class DateRangeSerializer(serializers.Serializer):
+    start_date = serializers.DateField()
+    # end_date = serializers.DateField()
+
+
 class StatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = Statistic
@@ -35,5 +40,9 @@ class UserStatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'gender', 'ip_address', 'statistics'
-        ]
+            'first_name', 'last_name', 'gender', 'ip_address', 'statistics',
+                    ]
+
+class UserDetailStatisticSerializer(serializers.Serializer):
+    user = UserStatisticSerializer()
+    date = DateRangeSerializer()
