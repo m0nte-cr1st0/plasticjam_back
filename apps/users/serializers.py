@@ -1,5 +1,3 @@
-from django.db.models import Sum, F
-
 from rest_framework import serializers
 
 from .models import User, Statistic
@@ -12,7 +10,7 @@ class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id', 'first_name', 'last_name', 'gender', 'ip_address',
+            'id', 'first_name', 'last_name', 'email', 'gender', 'ip_address',
             'total_clicks', 'total_page_views'
         ]
 
@@ -23,11 +21,6 @@ class UserListSerializer(serializers.ModelSerializer):
         return sum(obj.statistics.values_list('page_views', flat=True))
 
 
-class DateRangeSerializer(serializers.Serializer):
-    start_date = serializers.DateField()
-    # end_date = serializers.DateField()
-
-
 class StatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = Statistic
@@ -35,14 +28,8 @@ class StatisticSerializer(serializers.ModelSerializer):
 
 
 class UserStatisticSerializer(serializers.ModelSerializer):
-    statistics = StatisticSerializer(many=True)
-
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'gender', 'ip_address', 'statistics',
-                    ]
-
-class UserDetailStatisticSerializer(serializers.Serializer):
-    user = UserStatisticSerializer()
-    date = DateRangeSerializer()
+            'first_name', 'last_name', 'gender', 'ip_address',
+        ]

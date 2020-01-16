@@ -15,12 +15,31 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from revproxy.views import ProxyView
+from django.conf import settings
 
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+
+api_patterns = [
+    url(r'^api/v1/users/', include('apps.users.urls')),
+]
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/users/', include('apps.users.urls')),
-    
-
 ]
+
+urlpatterns += api_patterns
+
+if settings.GENERATE_AUTO_DOCS:
+    schema_view = get_schema_view(
+        openapi.Info("PlasticJam", 'v1'),
+        patterns=api_patterns,
+        public=True,
+    )
+
+    urlpatterns += [
+        url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+        url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+        url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    ]

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
+    'drf_yasg',
 
     'apps.users'
 ]
@@ -143,7 +144,10 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 50
+    'PAGE_SIZE': 50,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -152,3 +156,17 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_BLOCKED_URLS = [
     "user-detail",
 ]
+
+# Documentation with Swagger/Redoc
+GENERATE_AUTO_DOCS = True
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   },
+   'USE_SESSION_AUTH': False
+}

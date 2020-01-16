@@ -9,7 +9,7 @@ from corsheaders.middleware import CorsMiddleware as BaseCorsMiddleware
 class CorsMiddleware(BaseCorsMiddleware):
     def process_response(self, request, response):
         """
-        Override 'corsheaders.CorsMiddleware'
+        Override 'corsheaders.CorsMiddleware' for blocking own domain for url from CORS_BLOCKED_URLS list
         """
         referrer_domain = current_domain = request.META['HTTP_HOST']
         referrer_path = urlparse(request.META['HTTP_REFERER'])
