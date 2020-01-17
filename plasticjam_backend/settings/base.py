@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import os
 from decouple import config, Csv
-import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,18 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&_7cl**%+7skvh7w$!e!x=1h=$8-_0piq5elo@3oe-=t2-tmss'
+SECRET_KEY = config('SECRET_KEY', default="&_7cl**%+7skvh7w$!e!x=1h=$8-_0piq5elo@3oe-=t2-tmss")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
-DEBUG = True
-SECRET_KEY = config(
-    'SECRET_KEY',
-    default="&_7cl**%+7skvh7w$!e!x=1h=$8-_0piq5elo@3oe-=t2-tmss"
-)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=Csv())
 
 # Application definition
 
@@ -89,29 +82,12 @@ WSGI_APPLICATION = 'plasticjam_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': config('DB_NAME'),
-#        'USER': config('DB_USER'),
-#        'PASSWORD': config('DB_PASSWORD'),
-#        'HOST': config('DB_HOST'),
-#        'PORT': '3306',
-#    }
-#}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sqlite3.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'plasticjam_db',
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 
 AUTH_USER_MODEL = 'users.User'
@@ -170,17 +146,20 @@ REST_FRAMEWORK = {
 }
 
 
-CORS_ORIGIN_ALLOW_ALL = config('DEBUG', default=True, cast=bool)
+CORS_ORIGIN_ALLOW_ALL = config('DEBUG', default=False, cast=bool)
 
 # Name of urls which should be blocked
-CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default='user-detail', cast=Csv())
+CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default='', cast=Csv())
 
 
 # Documentation with Swagger/Redoc
-GENERATE_AUTO_DOCS = config('GENERATE_AUTO_DOCS', default=True, cast=bool)
+GENERATE_AUTO_DOCS = config('GENERATE_AUTO_DOCS', default=False, cast=bool)
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -32,7 +32,7 @@ class StatisticSerializer(serializers.ModelSerializer):
 
         Adds extra fields to json, changes ``user`` field
         """
-        output = super(_StatisticSerializer, self).to_representation(instance)
+        output = super(StatisticSerializer, self).to_representation(instance)
         user = User.objects.get(pk=output['user'])
         user_serializer = UserSerializer(user)
         dates = user.statistics.only('date')

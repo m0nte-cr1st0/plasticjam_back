@@ -1,8 +1,3 @@
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
-from django.utils.decorators import method_decorator
-from rest_framework import filters, serializers
-
 from rest_framework.generics import ListAPIView
 
 from .filters import UserStatisticFilter
