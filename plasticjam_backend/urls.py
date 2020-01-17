@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
+from django.conf.urls.static import static
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -29,7 +30,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 ]
 
-urlpatterns += api_patterns
+urlpatterns += api_patterns + += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.GENERATE_AUTO_DOCS:
     schema_view = get_schema_view(
