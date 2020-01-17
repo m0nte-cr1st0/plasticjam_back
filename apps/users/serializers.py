@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import User, Statistic
 
 
-class UserListSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     total_clicks = serializers.SerializerMethodField()
     total_page_views = serializers.SerializerMethodField()
 
@@ -24,12 +24,19 @@ class UserListSerializer(serializers.ModelSerializer):
 class StatisticSerializer(serializers.ModelSerializer):
     class Meta:
         model = Statistic
-        fields = ['date', 'clicks', 'page_views']
+        fields = '__all__'
 
+    def to_representation(self, instance):
+        """
+        Customizing output json data
 
-class UserStatisticSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            'first_name', 'last_name', 'gender', 'ip_address',
-        ]
+        Adds extra fields to json, changes ``user`` field
+        """
+        output = super(_StatisticSerializer, self).to_representation(instance)
+        user = User.objects.get(pk=output['user'])
+        user_serializer = UserSerializer(user)
+        dates = user.statistics.only('date')
+        output['user'] = user_serializer.data
+        output['min_date'] = dates.first().date
+        output['max_date'] = dates.last().date
+        return output

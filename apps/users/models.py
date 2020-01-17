@@ -11,6 +11,9 @@ GENDER_CHOICES = (
 )
 
 class User(AbstractUser):
+    """
+    Extend Django User model
+    """
     username = models.CharField(max_length=40, blank=True, null=True)
     email = models.EmailField(unique=True, db_index=True)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=GENDER_MALE)
@@ -21,6 +24,9 @@ class User(AbstractUser):
 
 
 class Statistic(models.Model):
+    """
+    User statistics
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='statistics')
     date = models.DateField(db_index=True)
     page_views = models.PositiveSmallIntegerField()

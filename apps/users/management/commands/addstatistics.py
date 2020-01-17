@@ -1,7 +1,9 @@
 import json
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
+
 from apps.users.models import Statistic
+
 
 class Command(BaseCommand):
     help = 'Adds users from json file.'

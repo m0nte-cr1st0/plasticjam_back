@@ -1,9 +1,10 @@
 from django.conf.urls import url
 
-from .views import UserListApiView, UserStatisticApiView
+from .views import UserListApiView, StatisticAPIView
+
 
 CORS_BLOCKED_URLS = [
-    url(r'^(?P<pk>\d+)/', UserStatisticApiView.as_view(), name="user-detail"),
+    url(r'^(?P<pk>\d+)/', StatisticAPIView.as_view(), name="user-detail"),
 ]
 
 urlpatterns = [
