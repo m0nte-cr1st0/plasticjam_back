@@ -2,10 +2,14 @@ certifi==2019.11.28
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
+dj-database-url==0.5.0
+dj-static==0.0.6
 Django==1.11.7
 django-cors-headers==3.2.1
+django-toolbelt==0.0.1
 djangorestframework==3.11.0
 drf-yasg==1.17.0
+gunicorn==20.0.4
 idna==2.8
 inflection==0.3.1
 itypes==1.1.0
@@ -13,6 +17,7 @@ Jinja2==2.10.3
 MarkupSafe==1.1.1
 mysqlclient==1.4.6
 packaging==20.0
+psycopg2==2.8.4
 pyparsing==2.4.6
 python-decouple==3.3
 pytz==2019.3
@@ -21,5 +26,6 @@ ruamel.yaml==0.16.5
 ruamel.yaml.clib==0.2.0
 six==1.14.0
 sqlparse==0.3.0
+static3==0.7.0
 uritemplate==3.0.1
 urllib3==1.25.7
