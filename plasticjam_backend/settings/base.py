@@ -88,16 +88,28 @@ WSGI_APPLICATION = 'plasticjam_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
+        'NAME': 'plasticjam_db',
+        'USER': 'plasticjam_user',
+        'PASSWORD': 'plasticjam_password',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
 
 AUTH_USER_MODEL = 'users.User'
 
