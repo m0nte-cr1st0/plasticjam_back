@@ -173,7 +173,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = config('DEBUG', default=True, cast=bool)
 
 # Name of urls which should be blocked
-CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default=['user-detail'], cast=Csv())
+CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default='user-detail', cast=Csv())
 
 
 # Documentation with Swagger/Redoc
