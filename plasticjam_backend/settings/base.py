@@ -178,3 +178,6 @@ CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default='user-detail', cast=Csv(
 
 # Documentation with Swagger/Redoc
 GENERATE_AUTO_DOCS = config('GENERATE_AUTO_DOCS', default=True, cast=bool)
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
