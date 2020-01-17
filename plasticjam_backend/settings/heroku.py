@@ -1,8 +1,6 @@
 from .base import *
 import dj_database_url
 
-DEBUG = True
-
 ALLOWED_HOSTS = ['plastickjambackend.herokuapp.com']
 
 db_from_env = dj_database_url.config(conn_max_age=500)

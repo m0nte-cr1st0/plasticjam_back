@@ -32,8 +32,6 @@ urlpatterns = [
 
 urlpatterns += api_patterns
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 if settings.GENERATE_AUTO_DOCS:
     schema_view = get_schema_view(
         openapi.Info("PlasticJam", 'v1'),
@@ -46,3 +44,5 @@ if settings.GENERATE_AUTO_DOCS:
         url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
         url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
