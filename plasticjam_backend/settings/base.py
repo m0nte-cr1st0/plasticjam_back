@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 import os
 from decouple import config, Csv
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -99,16 +100,8 @@ WSGI_APPLICATION = 'plasticjam_backend.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'plasticjam_db',
-        'USER': 'plasticjam_user',
-        'PASSWORD': 'plasticjam_password',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 AUTH_USER_MODEL = 'users.User'
