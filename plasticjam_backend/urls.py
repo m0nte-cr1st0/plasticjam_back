@@ -30,7 +30,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 ]
 
-urlpatterns += api_patterns + += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += api_patterns
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.GENERATE_AUTO_DOCS:
     schema_view = get_schema_view(
