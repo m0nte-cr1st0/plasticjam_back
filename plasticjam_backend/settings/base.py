@@ -89,17 +89,27 @@ WSGI_APPLICATION = 'plasticjam_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': config('DB_NAME'),
+#        'USER': config('DB_USER'),
+#        'PASSWORD': config('DB_PASSWORD'),
+#        'HOST': config('DB_HOST'),
+#        'PORT': '3306',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'sqlite3.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -160,11 +170,11 @@ REST_FRAMEWORK = {
 }
 
 
-CORS_ORIGIN_ALLOW_ALL = config('DEBUG', default=False, cast=bool)
+CORS_ORIGIN_ALLOW_ALL = config('DEBUG', default=True, cast=bool)
 
 # Name of urls which should be blocked
-CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default='user-detail', cast=Csv())
+CORS_BLOCKED_URLS = config('CORS_BLOCKED_URLS', default=['user-detail'], cast=Csv())
 
 
 # Documentation with Swagger/Redoc
-GENERATE_AUTO_DOCS = config('GENERATE_AUTO_DOCS', default=False, cast=bool)
+GENERATE_AUTO_DOCS = config('GENERATE_AUTO_DOCS', default=True, cast=bool)
