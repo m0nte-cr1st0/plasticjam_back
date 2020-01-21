@@ -76,7 +76,7 @@ class UserStatisticSerializer(serializers.Serializer):
     @staticmethod
     def daterange(start_date: Date, end_date: Date):
         # https://stackoverflow.com/a/1060330/11214129
-        for n in range(int ((end_date - start_date).days)):
+        for n in range(int ((end_date - start_date).days)+1):
             yield start_date + datetime.timedelta(n)
 
     def to_representation(self, instance):
