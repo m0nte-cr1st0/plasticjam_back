@@ -19,7 +19,7 @@ class UsersTestCase(APITestCase):
                 'ip_address': "192.168.0."+str(i),
             })
         users = User.objects.bulk_create([User(**i) for i in user_data])
-        self.user = User.objects.get(pk=48)
+        self.user = User.objects.get(email='first@mail.com48')
         for i in range(1, 6):
             Statistic.objects.create(
                 user=self.user,
@@ -67,9 +67,7 @@ class UsersTestCase(APITestCase):
         self.assertEqual(len(user_data['statistics']), 7)
         self.assertEqual(user_data['max_date'], '2019-10-09')
 
-    def test_user_filter_detail(self, *args, **kwargs):
         url = reverse('users-detail', kwargs={'pk': 48})
-        self.client.force_authenticate(self.user)
         params = {'start_date': '2019-10-05', 'end_date': '2019-10-08'}
         response = self.client.get(url, params)
         user_data = response.json()
