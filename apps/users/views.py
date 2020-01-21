@@ -1,9 +1,8 @@
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
-from .filters import UserStatisticFilter
-from .models import User, Statistic
+from .models import User
 from .pagination import UsersSetPagination
-from .serializers import UserSerializer, StatisticSerializer
+from .serializers import UserSerializer, UserStatisticSerializer
 
 
 class UserListApiView(ListAPIView):
@@ -18,13 +17,12 @@ class UserListApiView(ListAPIView):
     pagination_class = UsersSetPagination
 
 
-class StatisticAPIView(ListAPIView):
+class StatisticAPIView(RetrieveAPIView):
     """
-    list:
+    retrieve:
     Statistics for user and their data
 
     Return list of user statistics using custom filtering
     """
-    queryset = Statistic.objects.all()
-    serializer_class = StatisticSerializer
-    filter_backends = [UserStatisticFilter]
+    serializer_class = UserStatisticSerializer
+    queryset = User.objects.all()
