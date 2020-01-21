@@ -12,6 +12,11 @@ First, run `migrate`
 
 To add users and statistics from json files need to run `management` commands `addusers` and `addstatistics`
 
+## Testing
+
+```bash
+./manage.py test --settings=plasticjam_backend.settings._local
+```
 
 ## Other
 
