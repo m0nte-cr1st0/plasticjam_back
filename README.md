@@ -21,6 +21,8 @@ Customized `Pagination`
 
 Used [`generator`](https://github.com/m0nte-cr1st0/plasticjam_back/blob/master/apps/users/serializers.py#L81)
 
+Wrote documentation using [`drf-yasg`](https://github.com/m0nte-cr1st0/plasticjam_back/blob/master/apps/users/views.py#L12)
+
 ## Heroku
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
