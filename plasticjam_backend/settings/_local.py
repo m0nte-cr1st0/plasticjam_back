@@ -19,6 +19,6 @@ DEBUG = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_BLOCKED_URLS = ['user-detail']
+CORS_BLOCKED_URLS = ['users-detail']
 
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'].append('rest_framework.renderers.BrowsableAPIRenderer')

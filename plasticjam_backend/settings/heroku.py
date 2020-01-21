@@ -8,4 +8,4 @@ DATABASES['default'].update(db_from_env)
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_BLOCKED_URLS = ['user-detail']
+CORS_BLOCKED_URLS = ['users-detail']

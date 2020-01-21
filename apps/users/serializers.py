@@ -1,6 +1,7 @@
 import datetime
 from typing import Iterable, Tuple
 
+from drf_yasg.utils import swagger_serializer_method
 from rest_framework import serializers
 
 from .models import User, Statistic
@@ -34,17 +35,12 @@ class UserSerializer(serializers.ModelSerializer):
         return sum(obj.statistics.values_list('page_views', flat=True))
 
 
-class StatisticSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Statistic
-        fields = ['clicks', 'page_views', 'date']
-
-
 class UserStatisticSerializer(serializers.Serializer):
     user = serializers.SerializerMethodField()
     max_date = serializers.SerializerMethodField()
     min_date = serializers.SerializerMethodField()
 
+    @swagger_serializer_method(serializer_or_field=UserSerializer())
     def get_user(self, obj):
         return UserSerializer(obj).data
 
@@ -102,3 +98,22 @@ class UserStatisticSerializer(serializers.Serializer):
                 {'date': date, 'clicks': clicks, 'page_views': page_views}
             )
         return data
+
+
+class StatisticSerializer(serializers.ModelSerializer):
+    """
+    Just for documentation
+    """
+    class Meta:
+        model = Statistic
+        fields = ['clicks', 'page_views', 'date']
+
+
+class StatisticSwaggerSerializer(serializers.Serializer):
+    """
+    Just for documentation
+    """
+    user = UserSerializer()
+    statistics = StatisticSerializer(many=True)
+    max_date = serializers.DateField()
+    min_date = serializers.DateField()

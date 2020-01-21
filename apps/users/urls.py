@@ -1,14 +1,12 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from rest_framework.routers import SimpleRouter
 
-from .views import UserListApiView, StatisticAPIView
+from .views import UsersAPIView
 
 
-CORS_BLOCKED_URLS = [
-    url(r'^(?P<pk>\d+)/', StatisticAPIView.as_view(), name="user-detail"),
-]
+router = SimpleRouter()
+router.register(r'', UsersAPIView, basename='users')
 
 urlpatterns = [
-    url(r'^$', UserListApiView.as_view(), name="users-list"),
+    url(r'', include(router.urls)),
 ]
-
-urlpatterns += CORS_BLOCKED_URLS
